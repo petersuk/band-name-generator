@@ -1,11 +1,18 @@
 'use strict';
 
 $(function() {
-  Your Answer:
-  var arr = ["Mike","Erica","Alex"];
 
-  function getName(){
-    document.getElementById("names").innerHTML = arr[Math.floor(Math.random() * arr.length)]
-  }
+  $("button").click(function() {
+    $.get("http://localhost:3000/adjective", function(response) {
+      $("#adjective").text(response);
+    });
+    $.get("http://localhost:3000/verb", function(response) {
+      $("#verb").text(response);
+    });
+    $.get("http://localhost:3000/noun", function(response) {
+      $("#noun").text(response);
+    });
+  });
 
 });
+

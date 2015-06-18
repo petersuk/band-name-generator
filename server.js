@@ -1,31 +1,72 @@
+'use strict';
+
 var express = require("express");
 var app = express();
 var port = process.env.PORT || 3000;
 
+app.use(express.static(__dirname + "/app/"));
+
 var Adjective = function() {
-  this.badly = true;
   this.sleepy = true;
-  this.tasty = true;
-  this.awesome = true;
-  this.penultimate = true;
+  this.fuzzy = true;
+  this.cranky = true;
+  this.soporific = true;
+  this.eloquent = true;
+}
+
+var Verbs = function() {
+  this.overflow = true;
+  this.scare = true;
+  this.taste = true;
+  this.squash = true;
+  this.applaud = true;
+}
+
+var Nouns = function() {
+  this.house = true;
+  this.bucket = true;
+  this.cut = true;
+  this.headphones = true;
+  this.lighter = true;
 };
 
 var adjective = new Adjective();
-
-function getRandomWord(object) {
+function getRandomWord (object) {
   var propArray = Object.keys(object);
   var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
   return {word: randomProp};
 }
 
-app.get("/", function (req, res) {
-  res.send("hello, universe!");
+var verb = new Verb();
+function getRandomWord (object) {
+  var propArray = Object.keys(object);
+  var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
+  return {word: randomProp};
+}
+
+var noun = new Noun();
+function getRandomWord (object) {
+  var propArray = Object.keys(object);
+  var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
+  return {word: randomProp};
+}
+
+app.get("/", function(req, res) {
+  res.sendFile("index.html");
 });
 
-app.get("/adjective", function (req, res) {
+app.get("/adjective", function(req, res) {
   res.json(getRandomWord(adjective));
 });
 
-app.listen(port, function() {
-  console.log("server starting. available at http://localhost:" + port);
+app.get("/verb", function(req, res) {
+  res.json(getRandomWord(adjective));
 });
+
+app.get("/noun", function(req, res) {
+  res.json(getRandomWord(adjective));
+});
+app.listen(port, function() {
+  console.log("server starting. available at http://localhost: " + port);
+});
+
