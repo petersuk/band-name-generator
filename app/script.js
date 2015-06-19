@@ -16,3 +16,22 @@ $(function() {
 
 });
 
+$("form").on("submit", function(e) {
+    e.preventDefault();
+ });
+
+$("#submitWords").on("submit", function(e) {
+  e.preventDefault();
+  var adjective = $("[name=adjective]").val();
+  var adjPost;
+
+  if (adjective) {
+    adjPost = {word: adjective};
+    console.log(name);
+    $.post("adjective", adjPost, function(response) {
+      var adjectiveRes = response.msg;
+      $("#adjectiveRes").text(adjectiveRes);
+    });
+  }
+
+});
