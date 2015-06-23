@@ -1,72 +1,60 @@
 'use strict';
 
-var express = require("express");
+var express = require('express');
 var app = express();
 var port = process.env.PORT || 3000;
+var bodyparser = require('body-parser');
 
-app.use(express.static(__dirname + "/app/"));
+var Adjective = require('./lib/adjective.js');
+var Noun = require('./lib/noun.js');
+var Verb = require('./lib/verb.js');
 
-var Adjective = function() {
-  this.sleepy = true;
-  this.fuzzy = true;
-  this.cranky = true;
-  this.soporific = true;
-  this.eloquent = true;
-}
+var getRandomWord = require('./lib/getRandomWord.js');
+var postRandomWord = require('./lib/postRandomWord');
 
-var Verbs = function() {
-  this.overflow = true;
-  this.scare = true;
-  this.taste = true;
-  this.squash = true;
-  this.applaud = true;
-}
+app.use(bodyparser.json());
+app.use(bodyparser.urlencoded({extended: true}));
 
-var Nouns = function() {
-  this.house = true;
-  this.bucket = true;
-  this.cut = true;
-  this.headphones = true;
-  this.lighter = true;
-};
+app.use(express.static(__dirname + '/app/'));
 
 var adjective = new Adjective();
-function getRandomWord (object) {
-  var propArray = Object.keys(object);
-  var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
-  return {word: randomProp};
-}
-
-var verb = new Verb();
-function getRandomWord (object) {
-  var propArray = Object.keys(object);
-  var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
-  return {word: randomProp};
-}
-
 var noun = new Noun();
-function getRandomWord (object) {
-  var propArray = Object.keys(object);
-  var randomProp = propArray[Math.floor(Math.random() * propArray.length)];
-  return {word: randomProp};
-}
+var verb = new Verb();
 
-app.get("/", function(req, res) {
-  res.sendFile("index.html");
+app.get('/', function(req, res) {
+  res.sendFile('index.html');
 });
 
-app.get("/adjective", function(req, res) {
+app.get('/adjective', function(req, res) {
   res.json(getRandomWord(adjective));
 });
 
-app.get("/verb", function(req, res) {
-  res.json(getRandomWord(adjective));
+app.get('/verb', function(req, res) {
+  res.json(getRandomWord(verb));
 });
 
-app.get("/noun", function(req, res) {
-  res.json(getRandomWord(adjective));
+app.get('/noun', function(req, res) {
+  res.json(getRandomWord(noun));
 });
+
+app.post('/adjective', function(req, res) {
+  console.log (req.body);
+  var word = postRandomWord(req.body.word, adjective);
+  res.json(word);
+});
+
+app.post('/verb', function(req, res) {
+  console.log (req.body);
+  var word = postRandomWord(req.body.word, verb);
+  res.json(word);
+});
+
+app.post('/noun', function(req, res) {
+  console.log (req.body);
+  var word = postRandomWord(req.body.word, noun);
+  res.json(word);
+});
+
 app.listen(port, function() {
-  console.log("server starting. available at http://localhost: " + port);
+  console.log('server starting. available at http://localhost: ' + port);
 });
-
