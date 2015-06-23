@@ -1,36 +1,70 @@
 'use strict';
 
 $(function() {
+  $('#button').on('click', function() {
+    $('#bandadj').text = '';
+    $('#bandnoun').text = '';
+    $('#bandverb').text = '';
 
-  $("button").click(function() {
-    $.get("http://localhost:3000/adjective", function(response) {
-      $("#adjective").text(response);
+    $.get('/adjective', function(response) {
+      var adjective = response.word;
+      $('#bandadj').text(adjective + ' ');
     });
-    $.get("http://localhost:3000/verb", function(response) {
-      $("#verb").text(response);
+
+    $.get('/verb', function(response) {
+      var verb = response.word;
+      $('#bandverb').text(verb + ' ');
     });
-    $.get("http://localhost:3000/noun", function(response) {
-      $("#noun").text(response);
+
+    $.get('/noun', function(response) {
+      var noun = response.word;
+      $('#bandnoun').text(noun + ' ');
     });
   });
-
 });
 
-$("form").on("submit", function(e) {
-    e.preventDefault();
- });
-
-$("#submitWords").on("submit", function(e) {
+$('#submitWord').on('submit', function(e) {
   e.preventDefault();
-  var adjective = $("[name=adjective]").val();
+
+  var adjective = $('#user-adjective').val();
   var adjPost;
+
+  console.log(adjective);
+
+  var verb = $('#user-verb').val();
+  var verbPost;
+
+  console.log(verb);
+
+  var noun = $('#user-noun').val();
+  var nounPost;
+
+  console.log(noun);
 
   if (adjective) {
     adjPost = {word: adjective};
-    console.log(name);
-    $.post("adjective", adjPost, function(response) {
+
+    $.post('adjective', adjPost, function(response) {
       var adjectiveRes = response.msg;
-      $("#adjectiveRes").text(adjectiveRes);
+      $('#adjectiveRes').text(adjectiveRes);
+    });
+  }
+
+  if (verb) {
+    verbPost = {word: verb};
+
+    $.post('verb', verbPost, function(response) {
+      var verbRes = response.msg;
+      $('#verbRes').text(verbRes);
+    });
+  }
+
+  if (noun) {
+    nounPost = {word: noun};
+
+    $.post('noun', nounPost, function(response) {
+      var nounRes = response.msg;
+      $('#nounRes').text(nounRes);
     });
   }
 

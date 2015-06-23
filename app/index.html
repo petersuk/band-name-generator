@@ -3,37 +3,47 @@
 <html>
 
 <head>
-  <title>Boom goes the dynamite!</title>
+  <title>Band Name Generator</title>
 </head>
 
 <body>
 
-  <h3>Submit words!</h3>
+  <h3 align="center">Use our band name generator to create a unique band name.</h3>
+  <h4 align="center">or...add your own words into the generator to liven things up!</h4>
 
-  <form id="submitWords">
-    <label for="user-adjective">Give us an adjective:</label>
+  <div align="center">
+    <button id="button">Generate</button>
+
+    <p>Your Band's Name IS: <br><br>
+      <h2>
+        <span id="bandadj"></span>
+        <span id="bandverb"></span>
+        <span id="bandnoun"></span>
+      </h2>
+    </p>
+
+  </div>
+
+  <br><br><br><br>
+
+  <form id="submitWord", align="center">
+
+    <label for="user-adjective">Adjective:</label>
     <input type="text" name="adjective" id="user-adjective">
-    <input type="submit" value="Submit Words">
+    <input type="submit" value="Add"> <br>
+    <p id="adjectiveRes"></p>
+
+    <label for="user-verb" >Verb:</label>
+    <input type="text" name="verb" id="user-verb">
+    <input type="submit" value="Add">      <br>
+    <p id="verbRes"></p>
+
+    <label for="user-noun">Noun:</label>
+    <input type="text" name="noun" id="user-noun">
+    <input type="submit" value="Add">      <br>
+    <p id="nounRes"></p>
+
   </form>
-
-  <p id="adjectiveRes"></p>
-
-  <button id="name">Boom goes the dynamite!</button>
-
-  <p>
-    Your adjective:
-    <span id="adjective"></span>
-  </p>
-
-  <p>
-    Your verb:
-    <span id="verb"></span>
-  </p>
-
-  <p>
-    Your noun:
-    <span id="noun"></span>
-  </p>
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
   <script src="script.js"></script>
